@@ -1,58 +1,82 @@
 package com.vietbahnartranslate.view
 
 import android.os.Bundle
+import android.util.Log
+import android.view.View
+import android.view.Window
 import androidx.appcompat.app.AppCompatActivity
 import androidx.navigation.fragment.NavHostFragment
 import androidx.navigation.ui.NavigationUI
 import com.google.android.material.bottomnavigation.BottomNavigationView
 import com.vietbahnartranslate.R
+import com.vietbahnartranslate.model.data.DataStoreManager
+import com.vietbahnartranslate.model.data.Setting
+import com.vietbahnartranslate.utils.DataUtils
+import kotlinx.coroutines.DelicateCoroutinesApi
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.GlobalScope
+import kotlinx.coroutines.flow.catch
+import kotlinx.coroutines.launch
+import kotlinx.coroutines.withContext
 
 class MainActivity : AppCompatActivity() {
-    private val TAG = "Main Activity"
-//    var input: EditText? = null
-//    var output: TextView? = null
+    private val TAG = "MainActivity"
+
+    private lateinit var bottomNavigationView: BottomNavigationView
+
+    lateinit var dataStoreManager: DataStoreManager
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
+
+        supportRequestWindowFeature(Window.FEATURE_NO_TITLE)
+        supportActionBar?.hide()
+
         setContentView(R.layout.activity_main)
+
         val navHostFragment = supportFragmentManager.findFragmentById(R.id.nav_host_fragment) as NavHostFragment
         val navController = navHostFragment.navController
-        val bottomNavigationView = findViewById<BottomNavigationView>(R.id.bottom_navigation_view)
+        bottomNavigationView = findViewById(R.id.bottom_navigation_view)
         NavigationUI.setupWithNavController(bottomNavigationView, navController)
-//        input = findViewById(R.id.vietnamese_input)
-//        output = findViewById(R.id.bahnaric_output)
-//
-//
-//
-//        input?.addTextChangedListener(object : TextWatcher {
-//            override fun afterTextChanged(s: Editable) {}
-//            override fun beforeTextChanged(
-//                s: CharSequence, start: Int,
-//                count: Int, after: Int
-//            ) {
-//            }
-//
-//            override fun onTextChanged(
-//                s: CharSequence, start: Int,
-//                before: Int, count: Int
-//            ) {
-//                Log.d(TAG, s.toString())
-//                val apiInterface = ApiInterface.create().getTranslatedWord(Vietnamese(s.toString(), "Combined"))
-//                apiInterface.enqueue(object: Callback<Bahnaric> {
-//                    override fun onResponse(call: Call<Bahnaric>, response: Response<Bahnaric>) {
-//                        if (response.body() != null) {
-//                            val bahnaric = response.body()
-//                            Log.d(TAG, bahnaric.toString())
-//                            output?.text = response.body().toString()
-//                        }
-//                    }
-//
-//                    override fun onFailure(call: Call<Bahnaric>, t: Throwable) {
-//
-//                    }
-//
-//                })
-//            }
-//        })
+
+        // DataStore
+        dataStoreManager = DataStoreManager(this)
+
+        // Save to setting utils
+        GlobalScope.launch(Dispatchers.IO) {
+            dataStoreManager.getFromDataStore().catch { e ->
+                e.printStackTrace()
+            }.collect {
+                withContext(Dispatchers.Main) {
+                    Log.d(TAG, "here ${it.gender}, ${it.speed}, ${it.isSignedIn}")
+                    DataUtils.gender = it.gender
+                    DataUtils.speed = it.speed
+                    DataUtils.isSignedIn = it.isSignedIn
+                }
+            }
+        }
+    }
+
+    @OptIn(DelicateCoroutinesApi::class)
+    override fun onStop() {
+        super.onStop()
+        val setting = Setting(
+            DataUtils.gender,
+            DataUtils.speed,
+            DataUtils.isSignedIn
+        )
+        // Save to DataStore
+        GlobalScope.launch(Dispatchers.IO) {
+            Log.d(TAG, "write to DataStore ${setting.gender}, ${setting.speed}, ${setting.isSignedIn}")
+            dataStoreManager.saveToDataStore(setting)
+        }
+    }
+
+    fun hideBottomNavigationView() {
+        bottomNavigationView.visibility = View.GONE
+    }
+
+    fun showBottomNavigationView() {
+        bottomNavigationView.visibility = View.VISIBLE
     }
 }

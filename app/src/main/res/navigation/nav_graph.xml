@@ -9,20 +9,46 @@
         android:name="com.vietbahnartranslate.view.home.HomeFragment"
         android:label="fragment_home"
         tools:layout="@layout/fragment_home" >
+        <action
+            android:id="@+id/action_home_fragment_to_text_recognition_fragment"
+            app:destination="@id/text_recognition_fragment" />
     </fragment>
     <fragment
         android:id="@+id/setting_fragment"
-        android:name="com.vietbahnartranslate.view.SettingFragment"
+        android:name="com.vietbahnartranslate.view.setting.SettingFragment"
         android:label="fragment_setting"
-        tools:layout="@layout/fragment_setting" />
+        tools:layout="@layout/fragment_setting" >
+        <action
+            android:id="@+id/action_setting_fragment_to_backupFragment"
+            app:destination="@id/backup_restore_fragment" />
+        <action
+            android:id="@+id/action_setting_fragment_to_signInFragment"
+            app:destination="@id/signInFragment" />
+    </fragment>
     <fragment
         android:id="@+id/history_fragment"
         android:name="com.vietbahnartranslate.view.history.HistoryFragment"
         android:label="fragment_history"
         tools:layout="@layout/fragment_history" />
     <fragment
-        android:id="@+id/liked_fragment"
-        android:name="com.vietbahnartranslate.view.liked.LikedFragment"
-        android:label="fragment_liked"
-        tools:layout="@layout/fragment_liked" />
+        android:id="@+id/favourite_fragment"
+        android:name="com.vietbahnartranslate.view.favourite.FavouriteFragment"
+        android:label="fragment_favourite"
+        tools:layout="@layout/fragment_favourite" />
+    <fragment
+        android:id="@+id/text_recognition_fragment"
+        android:name="com.vietbahnartranslate.view.home.TextRecognitionFragment"
+        android:label="fragment_text_recognition"
+        tools:layout="@layout/fragment_text_recognition" >
+    </fragment>
+    <fragment
+        android:id="@+id/backup_restore_fragment"
+        android:name="com.vietbahnartranslate.view.setting.BackupRestoreFragment"
+        android:label="fragment_backup_restore"
+        tools:layout="@layout/fragment_backup_restore" />
+    <fragment
+        android:id="@+id/signInFragment"
+        android:name="com.vietbahnartranslate.view.setting.SignInFragment"
+        android:label="fragment_sign_in"
+        tools:layout="@layout/fragment_sign_in" />
 </navigation>

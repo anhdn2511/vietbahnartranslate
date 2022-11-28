@@ -5,7 +5,11 @@
     xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".view.MainActivity">
+    android:clickable="true"
+    android:focusableInTouchMode="true"
+    android:focusable="true"
+    tools:context=".view.MainActivity"
+    >
 
     <androidx.fragment.app.FragmentContainerView
         android:id="@+id/nav_host_fragment"
@@ -26,30 +30,7 @@
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
+        app:itemHorizontalTranslationEnabled="true"
         app:menu="@menu/bottom_navigation_menu" />
 
-    <!--    <EditText-->
-<!--        android:id="@+id/vietnamese_input"-->
-<!--        android:layout_width="wrap_content"-->
-<!--        android:layout_height="wrap_content"-->
-<!--        android:layout_marginTop="100dp"-->
-<!--        android:ems="10"-->
-<!--        android:inputType="textPersonName"-->
-<!--        android:hint="Input Vietnamese"-->
-<!--        app:layout_constraintEnd_toEndOf="parent"-->
-<!--        app:layout_constraintHorizontal_bias="0.497"-->
-<!--        app:layout_constraintStart_toStartOf="parent"-->
-<!--        app:layout_constraintTop_toTopOf="parent" />-->
-
-<!--    <TextView-->
-<!--        android:id="@+id/bahnaric_output"-->
-<!--        android:layout_width="wrap_content"-->
-<!--        android:layout_height="wrap_content"-->
-<!--        android:layout_marginTop="124dp"-->
-<!--        android:text="Bahnar"-->
-<!--        android:textSize="20sp"-->
-<!--        app:layout_constraintEnd_toEndOf="parent"-->
-<!--        app:layout_constraintHorizontal_bias="0.498"-->
-<!--        app:layout_constraintStart_toStartOf="parent"-->
-<!--        app:layout_constraintTop_toBottomOf="@+id/vietnamese_input" />-->
 </androidx.constraintlayout.widget.ConstraintLayout>

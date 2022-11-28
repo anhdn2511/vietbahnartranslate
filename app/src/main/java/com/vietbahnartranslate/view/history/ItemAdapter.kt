@@ -3,9 +3,11 @@ package com.vietbahnartranslate.view.history
 import android.annotation.SuppressLint
 import android.view.View
 import android.view.ViewGroup
+import androidx.fragment.app.Fragment
 import androidx.recyclerview.widget.RecyclerView
+import com.vietbahnartranslate.model.data.Translation
 
-class ItemAdapter : RecyclerView.Adapter<ItemAdapter.ViewHolder>(){
+class ItemAdapter(private val historyFragment: HistoryFragment) : RecyclerView.Adapter<ItemAdapter.ViewHolder>(){
     private val mData = mutableListOf<ModelItem>()
 
     @SuppressLint("NotifyDataSetChanged")
@@ -16,7 +18,7 @@ class ItemAdapter : RecyclerView.Adapter<ItemAdapter.ViewHolder>(){
     }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
-        val itemView = ItemCustomView(parent.context)
+        val itemView = ItemCustomView(this, parent.context)
         return ViewHolder(itemView)
     }
 
@@ -24,7 +26,7 @@ class ItemAdapter : RecyclerView.Adapter<ItemAdapter.ViewHolder>(){
         when (getItemViewType(position)) {
             ModelItem.WORD_ITEM_TYPE -> {
                 val item = mData[position]
-                if (item is WordModelItem) {
+                if (item is TranslationModelItem) {
                     val data = item.data
                     holder.customView.setData(data)
                 }
@@ -36,6 +38,10 @@ class ItemAdapter : RecyclerView.Adapter<ItemAdapter.ViewHolder>(){
 
     override fun getItemViewType(position: Int): Int = mData[position].itemType
 
+    fun onFavouriteClick(id: Int?, isFavourite: Boolean) {
+        historyFragment.onFavouriteClick(id, isFavourite)
+    }
+
      class ViewHolder(itemView: View): RecyclerView.ViewHolder(itemView) {
         val customView: ItemCustomView = itemView as ItemCustomView
     }
@@ -46,5 +52,5 @@ class ItemAdapter : RecyclerView.Adapter<ItemAdapter.ViewHolder>(){
         }
     }
 
-    class WordModelItem(val data: WordModel) : ModelItem(WORD_ITEM_TYPE)
+    class TranslationModelItem(val data: Translation) : ModelItem(WORD_ITEM_TYPE)
 }

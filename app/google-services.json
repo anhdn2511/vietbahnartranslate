@@ -1,0 +1,35 @@
+{
+  "project_info": {
+    "project_number": "238563823956",
+    "firebase_url": "https://vietbahnartranslate-default-rtdb.asia-southeast1.firebasedatabase.app",
+    "project_id": "vietbahnartranslate",
+    "storage_bucket": "vietbahnartranslate.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:238563823956:android:5eaeea0309a8d1c373f8c1",
+        "android_client_info": {
+          "package_name": "com.vietbahnartranslate"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyAxCMFJrWIu4UdPbLy7byyDsJ7mU3ajgKs"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "238563823956-7cpl5lqmk73lrcmcuj164opvjfjtvbtf.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

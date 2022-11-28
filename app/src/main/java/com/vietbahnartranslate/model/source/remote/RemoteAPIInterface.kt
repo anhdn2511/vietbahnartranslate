@@ -10,11 +10,11 @@ interface RemoteAPIInterface {
     @POST("translate/vi_ba")
     fun translate(@Body input:InputAPITranslate) : Call<OutputAPITranslate>
 
-    @POST("speak")
+    @POST("speak/vi_ba")
     fun speak(@Body input:InputAPISpeak): Call<OutputAPISpeak>
 
     companion object {
-        private const val BASE_URL = "https://bahnar-bk.dscilab.site:10001/"
+        private const val BASE_URL = "https://bahnar.dscilab.site:20007/"
         fun create() : RemoteAPIInterface {
             val retrofit = Retrofit.Builder()
                 .addConverterFactory(GsonConverterFactory.create())
