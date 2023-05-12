@@ -21,6 +21,9 @@ interface TranslationDAO {
     @Insert(onConflict = OnConflictStrategy.REPLACE)
     fun insert(vararg translation: Translation)
 
+    @Insert(onConflict = OnConflictStrategy.REPLACE)
+    fun insertAll(listTranslation: List<Translation>)
+
     @Query("UPDATE Translation SET isFavourite = :isFavourite, groupId = :groupId WHERE id = :id")
     fun updateIsFavourite( id: Int?, isFavourite: Boolean, groupId: Int?)
 
@@ -29,4 +32,7 @@ interface TranslationDAO {
 
     @Query("DELETE FROM Translation WHERE id = :id")
     fun deleteItem(id: Int?)
+
+    @Query("DELETE FROM Translation")
+    fun deleteAll()
 }

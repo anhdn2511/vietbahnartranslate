@@ -30,4 +30,8 @@ object FirebaseConnector {
         }
         return translationList
     }
+
+    fun writeFirebaseDatabase(email: String, list: Translation) {
+        //
+    }
 }

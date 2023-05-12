@@ -1,20 +1,12 @@
 package com.vietbahnartranslate.model.repository
 
 import android.app.Application
-import android.content.Context
 import android.text.TextUtils
-import android.util.Log
 import com.vietbahnartranslate.model.data.Translation
 import com.vietbahnartranslate.model.source.local.AppLocalDatabase
 import com.vietbahnartranslate.model.source.local.TranslationDAO
 import com.vietbahnartranslate.model.source.remote.FirebaseConnector
-import kotlinx.coroutines.CoroutineScope
-import kotlinx.coroutines.Dispatchers
-import kotlinx.coroutines.flow.MutableStateFlow
-import kotlinx.coroutines.flow.StateFlow
-import kotlinx.coroutines.flow.asStateFlow
-import kotlinx.coroutines.flow.merge
-import kotlinx.coroutines.launch
+import com.vietbahnartranslate.utils.DataUtils
 
 object WordRepo {
     private lateinit var translationDAO: TranslationDAO
@@ -67,7 +59,7 @@ object WordRepo {
         val dataFromLocal = getHistory()
 
         // Get data from remote
-        val dataFromRemote = FirebaseConnector.readFirebaseDatabase("")
+        val dataFromRemote = FirebaseConnector.readFirebaseDatabase(DataUtils.email)
 
         val resultList = mergeTwoSource(dataFromRemote, dataFromLocal)
 
@@ -85,13 +77,15 @@ object WordRepo {
         val dataFromLocal = getHistory()
 
         // Get data from remote
-        val dataFromRemote = FirebaseConnector.readFirebaseDatabase("")
+        val dataFromRemote = FirebaseConnector.readFirebaseDatabase(DataUtils.email)
 
         val resultList = mergeTwoSource(dataFromLocal, dataFromRemote)
 
         /**
          * Call write data to local
          */
+        translationDAO.deleteAll()
+        translationDAO.insertAll(resultList)
     }
 
     private fun mergeTwoSource(firstList: List<Translation>, secondList: List<Translation>) : List<Translation> {

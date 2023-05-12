@@ -12,6 +12,7 @@ import android.view.ViewGroup
 import android.widget.ImageView
 import android.widget.TextView
 import android.widget.Toast
+import androidx.constraintlayout.widget.ConstraintLayout
 import androidx.core.net.toUri
 import androidx.navigation.fragment.findNavController
 import com.google.android.material.bottomnavigation.BottomNavigationView
@@ -30,6 +31,8 @@ class SettingFragment : Fragment() {
 
     private lateinit var signInImageView: ImageView
 
+    private lateinit var backupRestoreConstraintLayout: ConstraintLayout
+
     private var bottomNavigationView: BottomNavigationView? = null
 
     @SuppressLint("SetTextI18n")
@@ -45,6 +48,7 @@ class SettingFragment : Fragment() {
         backupRestore = view.findViewById(R.id.setting_backup_restore_textView)
         signIn = view.findViewById(R.id.sign_in_textView)
         signInImageView = view.findViewById(R.id.sign_in_imageView)
+        backupRestoreConstraintLayout = view.findViewById(R.id.constraint_layout_backup_restore)
 
         bottomNavigationView = activity?.findViewById(R.id.bottom_navigation_view)
         if (bottomNavigationView?.visibility == View.GONE) {
@@ -53,8 +57,12 @@ class SettingFragment : Fragment() {
 
         if (DataUtils.isSignedIn) {
             signIn.text = "Xin chào bạn, ${DataUtils.displayName}"
-            Log.d(TAG, "photoURL is ${DataUtils.photoURL}")
             Picasso.with(requireContext()).load(DataUtils.photoURL.toUri()).into(signInImageView)
+            backupRestoreConstraintLayout.visibility = View.VISIBLE
+        } else {
+            signIn.text = "Đăng nhập sử dụng tài khoản google"
+            signInImageView.setImageResource(R.drawable.ic_baseline_person_24)
+            backupRestoreConstraintLayout.visibility = View.GONE
         }
 
         gender.setOnClickListener {

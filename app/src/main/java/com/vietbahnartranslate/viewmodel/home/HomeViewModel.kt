@@ -97,9 +97,10 @@ class HomeViewModel(application: Application): AndroidViewModel(application) {
     }
 
     fun onAddToFavouriteButtonClick(vietnamese: String) {
+        val unixTime = System.currentTimeMillis()/1000
         // Bahnaric can get from LiveData
         viewModelScope.launch(Dispatchers.IO) {
-            val translation = Translation(vietnamese, _translatedBahnaric.value.toString(), null, null, false, null, null)
+            val translation = Translation(vietnamese, _translatedBahnaric.value.toString(), null, null, false, unixTime, null)
             wordRepo.insert(translation)
         }
     }

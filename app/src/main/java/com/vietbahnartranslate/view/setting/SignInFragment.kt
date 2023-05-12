@@ -48,9 +48,21 @@ class SignInFragment : Fragment() {
         val view = inflater.inflate(R.layout.fragment_sign_in, container, false)
         signInButton = view.findViewById(R.id.sign_in_fragment_button)
         signInTextview = view.findViewById(R.id.sign_in_fragment_textView)
+        signInTextview.visibility = View.GONE //for testing
+
+        if (DataUtils.isSignedIn) {
+            signInButton.text = "Đăng xuất"
+        } else {
+            signInButton.text = "Đăng nhập"
+        }
 
         signInButton.setOnClickListener {
-            signInViewModel.signIn(signInResultLauncher, getString(R.string.web_client_id))
+            if (DataUtils.isSignedIn) {
+                signInViewModel.signOut()
+            } else {
+                signInViewModel.signIn(signInResultLauncher, getString(R.string.web_client_id))
+            }
+
         }
         return view
     }

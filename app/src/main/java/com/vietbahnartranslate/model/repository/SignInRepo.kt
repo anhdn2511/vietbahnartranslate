@@ -16,6 +16,7 @@ import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.auth.FirebaseUser
 import com.google.firebase.auth.GoogleAuthProvider
 import com.vietbahnartranslate.R
+import com.vietbahnartranslate.utils.DataUtils
 
 object SignInRepo {
     private val TAG = "SignInRepo"
@@ -102,5 +103,12 @@ object SignInRepo {
     fun signOut() {
         firebaseAuth.signOut()
         _signedOutLiveData.postValue(true)
+        _userLiveData.postValue(firebaseAuth.currentUser)
+
+        // Config temp, Move this to view model
+        DataUtils.isSignedIn = false
+        DataUtils.email = ""
+        DataUtils.displayName = ""
+        DataUtils.photoURL = ""
     }
 }
