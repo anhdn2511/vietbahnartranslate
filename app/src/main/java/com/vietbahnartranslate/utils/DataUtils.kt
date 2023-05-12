@@ -8,5 +8,13 @@ object DataUtils {
     var isSignedIn = false
     var displayName = ""
     var email = ""
-    var photoURL: Uri = Uri.EMPTY
+    var photoURL: String = ""
+
+    fun log(): String {
+        return """
+            displayName: $displayName,
+            email: $email,
+            photoURL: $photoURL
+        """.trimIndent()
+    }
 }

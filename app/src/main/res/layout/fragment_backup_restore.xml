@@ -5,7 +5,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".view.setting.BackupFragment">
+    tools:context=".view.setting.BackupRestoreFragment">
 
 
     <TextView
@@ -24,7 +24,7 @@
         android:layout_height="wrap_content"
         android:layout_marginStart="40dp"
         android:layout_marginTop="88dp"
-        android:text="Thời gian: "
+        android:text="Thời gian: 11-04-2023 15:54"
         android:textColor="@color/black"
         android:textSize="18sp"
         app:layout_constraintStart_toStartOf="parent"
@@ -35,7 +35,7 @@
         android:layout_height="wrap_content"
         android:layout_marginStart="40dp"
         android:layout_marginTop="132dp"
-        android:text="Thiết bị: "
+        android:text="Thiết bị: SAMSUNG SM-A045"
         android:textColor="@color/black"
         android:textSize="18sp"
         app:layout_constraintStart_toStartOf="parent"

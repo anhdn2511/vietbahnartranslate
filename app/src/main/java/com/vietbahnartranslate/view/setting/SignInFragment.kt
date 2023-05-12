@@ -65,7 +65,7 @@ class SignInFragment : Fragment() {
         """.trimIndent()
         DataUtils.displayName = user?.displayName ?: ""
         DataUtils.email = user?.email ?: ""
-        DataUtils.photoURL = user?.photoUrl ?: Uri.EMPTY
+        DataUtils.photoURL = user?.photoUrl.toString()
 
         Log.d(TAG, "photoURL is ${DataUtils.photoURL}")
     }

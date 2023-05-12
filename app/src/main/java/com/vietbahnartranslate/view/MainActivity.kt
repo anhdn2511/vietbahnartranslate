@@ -26,6 +26,7 @@ class MainActivity : AppCompatActivity() {
 
     lateinit var dataStoreManager: DataStoreManager
 
+    @OptIn(DelicateCoroutinesApi::class)
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
 
@@ -48,10 +49,13 @@ class MainActivity : AppCompatActivity() {
                 e.printStackTrace()
             }.collect {
                 withContext(Dispatchers.Main) {
-                    Log.d(TAG, "here ${it.gender}, ${it.speed}, ${it.isSignedIn}")
                     DataUtils.gender = it.gender
                     DataUtils.speed = it.speed
                     DataUtils.isSignedIn = it.isSignedIn
+                    DataUtils.displayName = it.displayName
+                    DataUtils.email = it.email
+                    DataUtils.photoURL = it.photoURL
+                    Log.d(TAG, DataUtils.log())
                 }
             }
         }
@@ -63,12 +67,15 @@ class MainActivity : AppCompatActivity() {
         val setting = Setting(
             DataUtils.gender,
             DataUtils.speed,
-            DataUtils.isSignedIn
+            DataUtils.isSignedIn,
+            DataUtils.displayName,
+            DataUtils.email,
+            DataUtils.photoURL
         )
         // Save to DataStore
         GlobalScope.launch(Dispatchers.IO) {
-            Log.d(TAG, "write to DataStore ${setting.gender}, ${setting.speed}, ${setting.isSignedIn}")
             dataStoreManager.saveToDataStore(setting)
+            Log.d(TAG, "saveToDataStore with ${setting.displayName}")
         }
     }
 
