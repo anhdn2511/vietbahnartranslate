@@ -12,16 +12,28 @@ class BackupRestoreViewModel(application: Application) : AndroidViewModel(applic
 
     private val wordRepo = WordRepo(application)
 
+    fun init() {
+        wordRepo.initFirebaseData()
+    }
+
     fun onBackupButtonClick() {
         viewModelScope.launch(Dispatchers.IO) {
-            wordRepo.backupDataToRemote()
+            if (wordRepo.backupDataToRemote()) {
+
+            } else {
+
+            }
         }
 
     }
 
     fun onRestoreButtonClick() {
         viewModelScope.launch(Dispatchers.IO) {
-            wordRepo.restoreDataFromRemote()
+            if (wordRepo.restoreDataFromRemote()) {
+
+            } else {
+
+            }
         }
     }
 }

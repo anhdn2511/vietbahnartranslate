@@ -2,19 +2,37 @@ package com.vietbahnartranslate.model.repository
 
 import android.app.Application
 import android.text.TextUtils
+import android.util.Log
 import com.vietbahnartranslate.model.data.Translation
 import com.vietbahnartranslate.model.source.local.AppLocalDatabase
 import com.vietbahnartranslate.model.source.local.TranslationDAO
 import com.vietbahnartranslate.model.source.remote.FirebaseConnector
 import com.vietbahnartranslate.utils.DataUtils
+import kotlinx.coroutines.CoroutineScope
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.launch
 
 object WordRepo {
     private lateinit var translationDAO: TranslationDAO
-    private val TAG = "Word Repo"
+    private val TAG = "WordRepo"
+
+    private val firebaseData = mutableListOf<Translation>()
 
     operator fun invoke(application: Application): WordRepo {
         this.translationDAO = AppLocalDatabase.buildDatabase(application).getTranslationDAO()
         return this
+    }
+
+    init {
+        CoroutineScope(Dispatchers.Default).launch {
+            FirebaseConnector.firebaseDataStateFlow.collect {
+                firebaseData.addAll(it)
+            }
+        }
+    }
+
+    fun initFirebaseData() {
+        FirebaseConnector.readFirebaseDatabase(DataUtils.email)
     }
 
 
@@ -50,7 +68,7 @@ object WordRepo {
         translationDAO.updateIsFavourite(id, isFavourite, groupId)
     }
 
-    fun backupDataToRemote() {
+    fun backupDataToRemote() : Boolean{
         /**
          * Call Write to Firebase Database here
          */
@@ -58,26 +76,34 @@ object WordRepo {
         // Get data from local
         val dataFromLocal = getHistory()
 
+        if (dataFromLocal.isEmpty()) return false
+
         // Get data from remote
-        val dataFromRemote = FirebaseConnector.readFirebaseDatabase(DataUtils.email)
+        val dataFromRemote = firebaseData
 
         val resultList = mergeTwoSource(dataFromRemote, dataFromLocal)
 
         /**
          * Call Firebase Connector -> write data to Firebase Database
          */
+        FirebaseConnector.writeFirebaseDatabase(DataUtils.email, resultList)
+        return true
     }
 
-    fun restoreDataFromRemote() {
+    fun restoreDataFromRemote() : Boolean {
         /**
          * Call Read from Firebase Database here
          */
 
+        // Get data from remote
+        val dataFromRemote = firebaseData
+
+        Log.d(TAG, "dataFromRemote is $dataFromRemote")
+
+        if (dataFromRemote.isEmpty()) return false
+
         // Get data from local
         val dataFromLocal = getHistory()
-
-        // Get data from remote
-        val dataFromRemote = FirebaseConnector.readFirebaseDatabase(DataUtils.email)
 
         val resultList = mergeTwoSource(dataFromLocal, dataFromRemote)
 
@@ -86,6 +112,7 @@ object WordRepo {
          */
         translationDAO.deleteAll()
         translationDAO.insertAll(resultList)
+        return true
     }
 
     private fun mergeTwoSource(firstList: List<Translation>, secondList: List<Translation>) : List<Translation> {

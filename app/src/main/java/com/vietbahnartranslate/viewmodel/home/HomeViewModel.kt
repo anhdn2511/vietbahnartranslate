@@ -39,7 +39,6 @@ class HomeViewModel(application: Application): AndroidViewModel(application) {
 
     init {
         viewModelScope.launch(Dispatchers.IO) {
-            FirebaseConnector.readFirebaseDatabase("")
             TranslateRepo.translatedBahnaricFlow.collect{
                 _translatedBahnaric.postValue(it)
             }

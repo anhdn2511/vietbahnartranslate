@@ -7,6 +7,7 @@ import android.view.Window
 import androidx.appcompat.app.AppCompatActivity
 import androidx.navigation.fragment.NavHostFragment
 import androidx.navigation.ui.NavigationUI
+import com.google.android.material.appbar.MaterialToolbar
 import com.google.android.material.bottomnavigation.BottomNavigationView
 import com.vietbahnartranslate.R
 import com.vietbahnartranslate.model.data.DataStoreManager
@@ -22,6 +23,7 @@ import kotlinx.coroutines.withContext
 class MainActivity : AppCompatActivity() {
     private val TAG = "MainActivity"
 
+    private lateinit var appbar: MaterialToolbar
     private lateinit var bottomNavigationView: BottomNavigationView
 
     lateinit var dataStoreManager: DataStoreManager

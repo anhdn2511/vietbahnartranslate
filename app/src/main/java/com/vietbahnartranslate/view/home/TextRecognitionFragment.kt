@@ -38,7 +38,7 @@ class TextRecognitionFragment : Fragment() {
     private lateinit var closeDialogButton: ImageView
     private lateinit var copyToClipBoardButton: ImageView
     private lateinit var textInImageTextView: TextView
-    private lateinit var textInImageLayout: MaterialCardView
+    private lateinit var textInImagelayout: MaterialCardView
 
     private lateinit var cameraPreview: PreviewView
     private lateinit var imageView: ImageView
@@ -89,7 +89,7 @@ class TextRecognitionFragment : Fragment() {
         closeDialogButton = view.findViewById(R.id.text_recognition_close)
         copyToClipBoardButton = view.findViewById(R.id.text_recognition_copy_to_clipboard)
         textInImageTextView = view.findViewById(R.id.text_recognition_text_in_image)
-        textInImageLayout = view.findViewById(R.id.text_recognition_text_in_image_layout)
+        textInImagelayout = view.findViewById(R.id.text_recognition_text_in_image_layout)
         appbar = view.findViewById(R.id.appbar)
 
         cameraPreview = view.findViewById(R.id.text_recognition_preview_view)
@@ -117,10 +117,11 @@ class TextRecognitionFragment : Fragment() {
             if (copiedText.isNotEmpty()) {
                 textRecognitionViewModel.copyToClipboard(copiedText, requireContext())
             }
+            Toast.makeText(requireContext(), "Sao chép chữ thành công", Toast.LENGTH_SHORT).show()
         }
 
         closeDialogButton.setOnClickListener {
-            textInImageLayout.visibility = View.GONE
+            textInImagelayout.visibility = View.GONE
         }
 
         appbar.title = "Quét chữ từ ảnh"
@@ -137,7 +138,7 @@ class TextRecognitionFragment : Fragment() {
                     true
                 }
                 R.id.text_recognition_app_bar_gallery -> {
-                    textInImageLayout.visibility = View.GONE
+                    textInImagelayout.visibility = View.GONE
                     // TODO: open Image Picker
                     if (isReadPermissionGranted()) {
                         getImage()
@@ -169,7 +170,7 @@ class TextRecognitionFragment : Fragment() {
     }
 
     private fun onTextInImageLayoutVisible(visibility: Int) {
-        textInImageLayout.visibility = visibility
+        textInImagelayout.visibility = visibility
     }
 
     private fun requestReadPermission() {
