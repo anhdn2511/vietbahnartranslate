@@ -36,9 +36,9 @@ class HomeFragment : Fragment() {
 
     private val MY_PERMISSIONS_REQUEST_CAMERA: Int = 101
 
-    private val homeViewModel : HomeViewModel by lazy {
-        ViewModelProvider(this, ViewModelProvider.AndroidViewModelFactory.getInstance(requireActivity().application))[HomeViewModel::class.java]
-    }
+        private val homeViewModel : HomeViewModel by lazy {
+            ViewModelProvider(this, ViewModelProvider.AndroidViewModelFactory.getInstance(requireActivity().application))[HomeViewModel::class.java]
+        }
 
     private lateinit var vietnameseInputText: EditText
     private lateinit var bahnaricOutputText: TextView

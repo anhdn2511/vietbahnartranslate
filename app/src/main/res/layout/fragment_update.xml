@@ -34,7 +34,6 @@
             android:hint="Nhập văn bản tại đây"
             android:inputType="textMultiLine"
             android:textSize="18sp"
-            app:layout_constraintBottom_toTopOf="@+id/button_camera"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintHorizontal_bias="0.0"
             app:layout_constraintStart_toStartOf="@+id/vietnamese_text_view"
@@ -52,27 +51,19 @@
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintStart_toStartOf="parent" />
 
-        <ImageButton
-            android:id="@+id/button_camera"
+        <Button
+            android:id="@+id/button_update"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginBottom="32dp"
-            android:background="?android:selectableItemBackground"
-            android:src="@drawable/ic_baseline_camera_alt_24"
-            android:tooltipText="Máy ảnh"
+            android:layout_marginStart="158dp"
+            android:layout_marginTop="223dp"
+            android:layout_marginEnd="143dp"
+            android:layout_marginBottom="15dp"
+            android:text="@string/update_button"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintHorizontal_bias="0.496"
-            app:layout_constraintStart_toStartOf="parent" />
-
-        <TextView
-            android:id="@+id/camera_text_view"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="Máy ảnh"
-            app:layout_constraintEnd_toEndOf="@+id/button_camera"
-            app:layout_constraintStart_toStartOf="@+id/button_camera"
-            app:layout_constraintTop_toBottomOf="@+id/button_camera" />
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/vietnamese_input_text" />
 
 
     </androidx.constraintlayout.widget.ConstraintLayout>
@@ -95,38 +86,21 @@
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent" />
 
-        <TextView
-            android:id="@+id/bahnaric_output_text"
+        <EditText
+            android:id="@+id/bahnaric_input_text"
             android:layout_width="350dp"
             android:layout_height="wrap_content"
-            android:layout_marginTop="28dp"
-            android:textColor="@color/white"
+            android:layout_marginTop="56dp"
+            android:background="@android:color/transparent"
+            android:ems="18"
+            android:hint="Nhập văn bản tại đây"
+            android:inputType="textMultiLine"
             android:textSize="18sp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.0"
             app:layout_constraintStart_toStartOf="@+id/bahnaric_text_view"
-            app:layout_constraintTop_toBottomOf="@+id/bahnaric_text_view" />
-
-        <ImageButton
-            android:id="@+id/button_translate"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="16dp"
-            android:layout_marginEnd="24dp"
-            android:background="?android:selectableItemBackground"
-            android:src="@drawable/ic_baseline_add_circle_24"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintTop_toTopOf="parent" />
-
-        <ImageButton
-            android:id="@+id/button_speaker"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="16dp"
-            android:layout_marginEnd="64dp"
-            android:background="?android:selectableItemBackground"
-            android:src="@drawable/ic_baseline_volume_up_white_24"
-            android:visibility="gone"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintTop_toTopOf="parent" />
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintVertical_bias=".0" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 </LinearLayout>

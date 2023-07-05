@@ -3,21 +3,21 @@
     <item
         android:id="@+id/home_fragment"
         android:icon="@drawable/ic_baseline_home_24"
-        android:title="Trang chủ"
-    />
+        android:title="@string/Home" />
     <item
         android:id="@+id/history_fragment"
         android:icon="@drawable/ic_baseline_history_24"
-        android:title="Lịch sử"
-        />
+        android:title="@string/History" />
+    <item
+        android:id="@+id/update_fragment"
+        android:icon="@drawable/ic_baseline_update_24"
+        android:title="@string/Update" />
     <item
         android:id="@+id/favourite_fragment"
         android:icon="@drawable/ic_baseline_star_24"
-        android:title="Yêu thích"
-        />
+        android:title="@string/Favourite" />
     <item
         android:id="@+id/setting_fragment"
         android:icon="@drawable/ic_baseline_settings_24"
-        android:title="Cài đặt"
-        />
+        android:title="@string/Settings" />
 </menu>

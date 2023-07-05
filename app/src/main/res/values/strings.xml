@@ -4,4 +4,14 @@
     <string name="hello_blank_fragment">Hello blank fragment</string>
     <string name="title_activity_maps">MapsActivity</string>
     <string name="web_client_id">612171269555-qms1qbe1lh52p06p1gqcgioa3ia5c8vj.apps.googleusercontent.com</string>
+    <string name="Input_new_word">Nhập từ mới</string>
+    <string name="input_new_bahnar_word">Nhập từ mới</string>
+    <string name="Vietnamese_box">Vietnamese</string>
+    <string name="Bahnar_box">Bahnar\n</string>
+    <string name="Home">Trang chủ</string>
+    <string name="History">Lịch sử</string>
+    <string name="Update">Cập nhật</string>
+    <string name="Favourite">Yêu thích</string>
+    <string name="Settings">Cài đặt</string>
+    <string name="update_button">Cập nhật</string>
 </resources>

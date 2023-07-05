@@ -82,7 +82,7 @@ class HomeViewModel(application: Application): AndroidViewModel(application) {
     }
 
     fun translate(text: String) {
-        viewModelScope.launch(Dispatchers.IO){
+        val launch = viewModelScope.launch(Dispatchers.IO) {
             TranslateRepo.callAPITranslate(text)
         }
     }
