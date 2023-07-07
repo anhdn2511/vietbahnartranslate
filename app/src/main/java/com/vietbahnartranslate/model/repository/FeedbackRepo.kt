@@ -12,19 +12,19 @@ import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
 
-object AddRepo {
-    private val TAG = "Add Repo"
+object FeedbackRepo {
+    private val TAG = "Feedback Repo"
     private val remoteAPIInterface: RemoteAPIInterface = RemoteAPIInterface.create()
 
 
     fun callAPIAdd(text1: String, text2: String) {
-        Log.d(TAG, "Call Add API")
-        val input = InputAPIAdd(text1, text2)
-        val api = remoteAPIInterface.add(input)
-        api.enqueue(object: Callback<OutputAPIAdd> {
+        Log.d(TAG, "Call Feedback API")
+        val input = InputAPIFeedback(text1, text2)
+        val api = remoteAPIInterface.feedback(input)
+        api.enqueue(object: Callback<OutputAPIFeedback> {
             override fun onResponse(
-                call: Call<OutputAPIAdd>,
-                response: Response<OutputAPIAdd>
+                call: Call<OutputAPIFeedback>,
+                response: Response<OutputAPIFeedback>
             ) {
                 if (response.body() != null) {
                     val res = response.body()
@@ -35,7 +35,7 @@ object AddRepo {
                 }
             }
 
-            override fun onFailure(call: Call<OutputAPIAdd>, t: Throwable) {
+            override fun onFailure(call: Call<OutputAPIFeedback>, t: Throwable) {
 
             }
         })

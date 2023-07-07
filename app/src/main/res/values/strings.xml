@@ -14,4 +14,5 @@
     <string name="Favourite">Yêu thích</string>
     <string name="Settings">Cài đặt</string>
     <string name="update_button">Cập nhật</string>
+    <string name="feedback_button">chỉnh sửa</string>
 </resources>

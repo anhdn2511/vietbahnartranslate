@@ -28,23 +28,30 @@ class UpdateFragment : Fragment() {
     private lateinit var vietnameseInputText: EditText
     private lateinit var bahnaricInputText: EditText
     private lateinit var updateButton: Button
+    private lateinit var feedbackButton: Button
 
     private lateinit var vietnameseConstraintLayout: ConstraintLayout
 
+    override fun onCreate(savedInstanceState: Bundle?) {
+        super.onCreate(savedInstanceState)
+    }
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
         Log.d(TAG, "onCreateView()")
+        updateViewModel.updatedBahnaric.observe(viewLifecycleOwner, this::bahnaricChanged)
 
         /* variables used to contain input from user */
         val view = inflater.inflate(R.layout.fragment_update, container, false)
         vietnameseInputText = view.findViewById(R.id.vietnamese_input_text)
         bahnaricInputText = view.findViewById(R.id.bahnaric_input_text)
         updateButton = view.findViewById(R.id.button_update)
+        feedbackButton = view.findViewById(R.id.button_feedback)
         vietnameseConstraintLayout = view.findViewById(R.id.constraint_layout_vietnamese)
 
         /* functions to handle user input */
+        Log.d(TAG, "inputting text" )
         vietnameseInputText.addTextChangedListener(object: TextWatcher {
             override fun beforeTextChanged(s: CharSequence?, start: Int, count: Int, after: Int) {
                 // TODO("Not yet implemented")
@@ -60,10 +67,10 @@ class UpdateFragment : Fragment() {
 
                 // If string is not empty, translate and change Translate button can be touched
                 if (!s.isNullOrBlank()) {
-                    // TODO("Not yet implemented")
                 }
                 else {
                     updateButton.visibility = View.GONE
+                    feedbackButton.visibility = View.GONE
                 }
             }
 
@@ -74,45 +81,32 @@ class UpdateFragment : Fragment() {
             else KeyboardUtils.onKeyboardInvisible(v, activity as MainActivity)
         }
 
-        bahnaricInputText.addTextChangedListener(object: TextWatcher {
-            override fun beforeTextChanged(s: CharSequence?, start: Int, count: Int, after: Int) {
-                // TODO("Not yet implemented")
-            }
-
-            override fun onTextChanged(s: CharSequence?, start: Int, before: Int, count: Int) {
-                // TODO("Not yet implemented")
-                //homeViewModel.translate(s.toString())
-            }
-
-            override fun afterTextChanged(s: Editable?) {
-                Log.d(TAG, " afterTextChanged ${s.toString()}")
-
-                // If string is not empty, translate and change Translate button can be touched
-                if (!s.isNullOrBlank()) {
-                    // TODO("Not yet implemented")
-                }
-                else {
-                    updateButton.visibility = View.GONE
-                }
-            }
-
-        })
-
-        bahnaricInputText.setOnFocusChangeListener { v, hasFocus ->
-            if (hasFocus) KeyboardUtils.onKeyboardVisible(activity as MainActivity)
-            else KeyboardUtils.onKeyboardInvisible(v, activity as MainActivity)
-        }
-
-        updateButton.visibility = View.GONE
+        updateButton.visibility = View.VISIBLE
+        feedbackButton.visibility = View.VISIBLE
 
         updateButton.setOnClickListener {
             // TODO: check input text is empty, if empty button cannot be touched
-            updateViewModel.update(vietnameseInputText.toString(), bahnaricInputText.toString())
-            Log.d(TAG, "onTranslateButtonClick")
+            Log.d(TAG, "onUpdateButtonClick")
             KeyboardUtils.onKeyboardInvisible(it, activity as MainActivity)
+            updateViewModel.update(vietnameseInputText.text.toString(), bahnaricInputText.text.toString())
         }
 
-        return inflater.inflate(R.layout.fragment_update, container, false)
+        feedbackButton.setOnClickListener {
+            // TODO: check input text is empty, if empty button cannot be touched
+            Log.d(TAG, "onFeedbackButtonClick")
+            KeyboardUtils.onKeyboardInvisible(it, activity as MainActivity)
+            updateViewModel.feedback(vietnameseInputText.text.toString(), bahnaricInputText.text.toString())
+        }
+
+        return view
+    }
+
+    private fun bahnaricChanged(text: String) {
+        Log.d(TAG, "bahnaric changed $text")
+        if (text.isNotBlank()) {
+            updateButton.visibility = View.VISIBLE
+            feedbackButton.visibility = View.VISIBLE
+        }
     }
 
 }

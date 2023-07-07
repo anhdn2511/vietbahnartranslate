@@ -12,10 +12,18 @@ import kotlinx.coroutines.launch
 
 class UpdateViewModel(application: Application) : AndroidViewModel(application) {
     private val TAG = "UpdateViewModel"
+    private val _updatedBahnaric = MutableLiveData(String())
+    val updatedBahnaric : LiveData<String> = _updatedBahnaric
 
     fun update(text1: String, text2: String) {
         val launch = viewModelScope.launch(Dispatchers.IO) {
             AddRepo.callAPIAdd(text1, text2)
+        }
+    }
+
+    fun feedback(text1: String, text2: String) {
+        val launch = viewModelScope.launch(Dispatchers.IO) {
+
         }
     }
 }
