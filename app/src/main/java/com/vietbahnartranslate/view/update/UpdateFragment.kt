@@ -1,22 +1,24 @@
 package com.vietbahnartranslate.view.update
 
-import androidx.lifecycle.ViewModelProvider
 import android.os.Bundle
 import android.text.Editable
 import android.text.TextWatcher
 import android.util.Log
-import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.EditText
+import android.view.inputmethod.EditorInfo
+import android.view.inputmethod.InputConnection
 import android.widget.Button
+import android.widget.EditText
 import androidx.constraintlayout.widget.ConstraintLayout
+import androidx.fragment.app.Fragment
+import androidx.lifecycle.ViewModelProvider
 import com.vietbahnartranslate.R
 import com.vietbahnartranslate.utils.KeyboardUtils
 import com.vietbahnartranslate.view.MainActivity
 import com.vietbahnartranslate.viewmodel.update.UpdateViewModel
-import com.vietbahnartranslate.viewmodel.home.HomeViewModel
+
 
 class UpdateFragment : Fragment() {
     private val TAG = "UpdateFragment"
@@ -51,6 +53,19 @@ class UpdateFragment : Fragment() {
         vietnameseConstraintLayout = view.findViewById(R.id.constraint_layout_vietnamese)
 
         /* functions to handle user input */
+
+        vietnameseInputText.setRawInputType(InputType.TYPE_CLASS_TEXT);
+        vietnameseInputText.setTextIsSelectable(true);
+
+        bahnaricInputText.setRawInputType(InputType.TYPE_CLASS_TEXT);
+        bahnaricInputText.setTextIsSelectable(true);
+
+        val ic1: InputConnection = vietnameseInputText.onCreateInputConnection(EditorInfo())
+        keyboard.setInputConnection(ic1)
+
+        val ic2: InputConnection = bahnaricInputText.onCreateInputConnection(EditorInfo())
+        keyboard.setInputConnection(ic2)
+
         Log.d(TAG, "inputting text" )
         vietnameseInputText.addTextChangedListener(object: TextWatcher {
             override fun beforeTextChanged(s: CharSequence?, start: Int, count: Int, after: Int) {
